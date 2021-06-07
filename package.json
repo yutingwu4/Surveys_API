@@ -1,0 +1,15 @@
+{
+  "name": "surveys-api",
+  "version": "1.0.0",
+  "description": "SurveysAPI is a JSON REST API for creating, modifying, and submitting surveys. A survey is an ordered list of survey questions. Supported types of questions include: - Text Entry (free form) (ex: \"What is your name\") - Multiple Choice (ex: \"Which color do you like the best? Choose one: [Orange, Green, Blue, Red]\") - Date (ex: \"What is your birthdate?\")",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node ./src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
