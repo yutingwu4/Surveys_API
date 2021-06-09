@@ -41,6 +41,13 @@ router.delete("/:id", (req, res) => {
     question: "What is your birthdate?"
   }
 
+  "responses": [
+    {
+      "What is your name?": "Herro",
+      "Which color do you like the best?": "Orange"
+    }
+  ]
+
 new question Front End:
 
 fetch("/api/addQuestion/4", {

@@ -38,6 +38,7 @@ surveyController.createSurvey = (name) => {
   const id = "_" + Date.now(); //or use uuid
   //create obj
   const survey = {
+    nextQuestionId: 0, //initial id for each question
     name,
     id,
     questions: [],
@@ -73,6 +74,10 @@ surveyController.saveResponse = (id, response) => {
 surveyController.saveQuestion = (id, question) => {
   //reading from json
   const survey = surveyController.getSurvey(id);
+  //extract nextQuestionID from survey to set ID of incoming question
+  const { nextQuestionID } = survey; //survey.nextQuestionID
+  question.id = nextQuestionID;
+  survey.nextQuestionID += 1;
   //adding questions to end of array of in-memory survey
   survey.questions.push(question);
   //saving back out to file
@@ -112,5 +117,21 @@ surveyController.modifyQuestion = (id, index, newQuestion) => {
   surveyController.saveFile(getSurveyDir(id), survey);
   return survey;
 };
+
+//-----validation-----//
+//verify question types
+//type, question = string
+//if options relevant, make sure 1) exists and 2) array of strings based on req.body
+
+//verify responses
+//expect req.body.response to be an obj
+  //key-value pairs with key as valid id of an existing question in survey
+  //remove key-value pairs that have invalid keys
+
+//check response type
+  //if response is not an option in mc type questions, reject with error
+  //if question type is date or text, response value should be string
+  //if question type is date, check response value with regex to be in desired format; if not, reject with error
+
 
 module.exports = surveyController;
