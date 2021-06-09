@@ -130,7 +130,7 @@ After:
 ![postMan_deleteQ_after](https://user-images.githubusercontent.com/74384669/121432754-ece4de00-c92f-11eb-9a66-6d82d486b7eb.PNG)
 
 
-### Future Implementation
+### Future Implementations
 
 Validation - question types and responses (logic written in pseudocode under controller.js).
 
