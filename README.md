@@ -8,7 +8,7 @@ SurveysAPI is a JSON REST API for creating, modifying, and submitting surveys. A
 # Challenge Overview
 This challenge has two parts (instructions for each appear below):
 1. Coding Portion
-2. Written Portion
+2. Written Portion (Please see response under Response section.)
 
 Submission Instructions:
 - Clone this repository and create your own remote to push it to.
@@ -57,7 +57,7 @@ These are just use cases, not necessarily API endpoints. Your API can have as ma
 #### Example questions you should ask to evaluate your submission (but not implement):
 (This list is not exhaustive)
 - How easy would it be for a new contributor to pick up the project?
-- How easy would it be to plug in a database layer?
+- How easy would it be to plug in a database layer? 
 - How easy would it be to add another type of survey question?
 - How easy would it be to add other new features (search surveys / submissions, list submissions, store user data, etc)?
 ## You will NOT be graded on
@@ -74,6 +74,26 @@ These are just use cases, not necessarily API endpoints. Your API can have as ma
 # Written Portion Instructions
 Create a brief summary (one-paragraph, or bulleted list) of what you'd need to do in order to make this app production-ready (eg pretend this is a real SAAS).
 - (This should _not_ include possible new features; assume the provided feature set is complete).
+
+## Response
+
+### Design Considerations
+
+The API system has been built as a CRUD interface that enables HTTP requests to be stored in a flat-file database.  It accounts for extensibility by maintaining the flexibility for engineers to modify the functionality of each route or controller. The routes are written to accommodate a variety of question types, beyond the ones outlined under Product Description, that can be asked on any survey.  Currently, this system is written so that it receives some instructions from the frontend on how each CRUD operation should relay information to the backend.  However, details such as how the user takes the survey/enters responses, specification of question types, whether the questions are reordered through a dnd interface, or other interpretation of json are assumed to be handled by some kind of frontend component framework.
+
+
+
+### Getting this app production-ready
+
+Create a set of guidelines with internal team to determine what is considered "production-ready."  To transition from development to production mode, consider aligning standards and approaches for the following areas:
+- Through code reviews, follow consistent naming conventions, discuss how to best handle error-handling, maintain readability,etc. (assuming that bottlenecks, single-points-of-failure, issues such as scalability/reliability/latency have been factored into the greater system design before implementing code)
+- Where and how to document decisions and thought processes
+- Testing (ie. unit, integration)/TDD
+- Determine workflow for CI/CD, how to regularly evaluate performance
+
+Once guidelines are set and code quality verified:
+- Register for an URL/DNS
+- Establish a hosting service (may be on the cloud) which would take care of holding onto the app's documents and running the server, handle load balancing, traffic routing, service discovery, health checks, etc.
 
 # Questions / Issues?
 Email me at patrick.wickham@alcoverooms.com and I will respond as soon as I can.
