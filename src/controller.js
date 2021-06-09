@@ -118,7 +118,7 @@ surveyController.modifyQuestion = (id, index, newQuestion) => {
   return survey;
 };
 
-//-----validation-----//
+//-----Validation-----//
 //verify question types
 //type, question = string
 //if options relevant, make sure 1) exists and 2) array of strings based on req.body
