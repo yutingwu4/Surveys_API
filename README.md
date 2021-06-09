@@ -1,3 +1,4 @@
+![Alcove_notes](https://user-images.githubusercontent.com/74384669/121419725-22ce9600-c921-11eb-854f-862051cf8362.png)
 # Product Description
 SurveysAPI is a JSON REST API for creating, modifying, and submitting surveys. A survey is an ordered list of survey questions. Supported types of questions include:
 - Text Entry (free form) (ex: "What is your name")
@@ -76,6 +77,8 @@ Create a brief summary (one-paragraph, or bulleted list) of what you'd need to d
 - (This should _not_ include possible new features; assume the provided feature set is complete).
 
 ## Response
+
+![Alcove_notes](https://user-images.githubusercontent.com/74384669/121419744-26621d00-c921-11eb-9b32-c45a6786f022.png)
 
 ### Design Considerations
 
