@@ -41,7 +41,7 @@ surveyController.createSurvey = (name) => {
     name,
     id,
     questions: [],
-    responses: [],
+    responses: [], //[[user 1 responses in order of questions in questions array], [user 2 responses in order of questions in questions array], ...]
   };
   //save to json with empty questions array and return survey to router
   surveyController.saveFile(getSurveyDir(id), survey);
@@ -58,7 +58,7 @@ surveyController.getSurvey = (id) => {
   return surveyController.readFile(getSurveyDir(id));
 };
 
-//receieve an array of responses
+//receive an array of responses
 surveyController.saveResponse = (id, response) => {
   //reading from json
   const survey = surveyController.getSurvey(id);
@@ -81,7 +81,7 @@ surveyController.saveQuestion = (id, question) => {
 };
 
 //delete a question (generic)
-surveyController.saveQuestion = (id, index) => {
+surveyController.deleteQuestion = (id, index) => {
   //reading from json
   const survey = surveyController.getSurvey(id);
   //delete a question based on its index placement in questions array
@@ -95,6 +95,7 @@ surveyController.saveQuestion = (id, index) => {
 //     type: "text",
 //     question: "What is your name?"
 //   }
+
 //   {
 //     type: "mc",
 //     question: "Which color do you like the best?",
@@ -102,5 +103,11 @@ surveyController.saveQuestion = (id, index) => {
 //       "Orange", "Green", "Blue", "Red"
 //     ]
 //   }
+
+// {
+//     type: "date",
+//     question: "What is your birthdate?"
+//   }
+
 
 module.exports = surveyController;

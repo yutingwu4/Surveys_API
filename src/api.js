@@ -20,7 +20,7 @@ router.get("/:id", (req, res) => {
 //remove survey
 router.delete("/:id", (req, res) => {
   surveyController.deleteFile(req.params.id);
-  res.status(200).send();
+  res.status(200).send("Survey deleted!");
 });
 
 //create via post request each survey question as values
@@ -38,7 +38,20 @@ router.post("/responses/:id", (req, res) => {
     req.params.id,
     req.body.response
   );
-  res.status(200).send(survey);
+  res.status(200).json(survey);
+});
+
+//add a question (generic)
+router.post("/addQuestion/:id", (req, res) => {
+  const newQuestion = req.body.question;
+  const survey = surveyController.saveQuestion(req.params.id, newQuestion);
+  res.status(200).json(survey);
+});
+
+//delete a question (generic)
+router.delete("/deleteQuestion/:id", (req, res) => {
+  surveyController.deleteQuestion(req.params.id, req.body.index);
+  res.status(200).send("Question removed!");
 });
 
 module.exports = router;
