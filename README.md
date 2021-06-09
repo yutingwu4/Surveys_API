@@ -98,28 +98,35 @@ The API system has been built as a CRUD interface that enables HTTP requests to 
 
 Testing of routes were performed through PostMan:
 1) Adding a question to a new survey:
+
 ![postMan_addQ](https://user-images.githubusercontent.com/74384669/121431490-519f3900-c92e-11eb-8cb5-463cabf22e53.PNG)
 
 2) Adding a response:
-![postMan_responses2](https://user-images.githubusercontent.com/74384669/121431513-59f77400-c92e-11eb-960d-84bd748674c6.PNG)
+
+![postMan_responses2](https://user-images.githubusercontent.com/74384669/121432963-36352d80-c930-11eb-96de-160b1a6f2402.PNG)
 
 3) Editing a question:
+
 ![postMan_editQ](https://user-images.githubusercontent.com/74384669/121431682-91feb700-c92e-11eb-9f72-cecb60236acf.PNG)
 
 4) Reordering a question:
 
 Before:
+
 ![postMan_survey_original_order2](https://user-images.githubusercontent.com/74384669/121432264-4dbfe680-c92f-11eb-9fe7-268ef6e91430.PNG)
 
 After:
+
 ![postMan_survey_new_order2](https://user-images.githubusercontent.com/74384669/121432279-52849a80-c92f-11eb-92b8-361c3e2fe51a.PNG)
 
 5) Delete a question:
 
 Before:
+
 ![postMan_deleteQ](https://user-images.githubusercontent.com/74384669/121432743-e9515700-c92f-11eb-8862-88d2b54acc91.PNG)
 
 After:
+
 ![postMan_deleteQ_after](https://user-images.githubusercontent.com/74384669/121432754-ece4de00-c92f-11eb-9a66-6d82d486b7eb.PNG)
 
 
