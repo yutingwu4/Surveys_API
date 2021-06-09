@@ -73,7 +73,7 @@ surveyController.saveResponse = (id, response) => {
 surveyController.saveQuestion = (id, question) => {
   //reading from json
   const survey = surveyController.getSurvey(id);
-  //modifying questions array by pushing received data into in-memory survey
+  //adding questions to end of array of in-memory survey
   survey.questions.push(question);
   //saving back out to file
   surveyController.saveFile(getSurveyDir(id), survey);
@@ -85,29 +85,32 @@ surveyController.deleteQuestion = (id, index) => {
   //reading from json
   const survey = surveyController.getSurvey(id);
   //delete a question based on its index placement in questions array
-  survey.questions.splice(index, 1, "");
+  survey.questions.splice(index, 1); // if use React on frontend, suppose component rerenders sequence of questions
   //saving back out to file
   surveyController.saveFile(getSurveyDir(id), survey);
   return survey;
 };
 
-//  {
-//     type: "text",
-//     question: "What is your name?"
-//   }
+//reorder question, front end sends us instructions; assuming frontend does this by dnd, re-indexing
+surveyController.reorderQuestion = (id, oldIndex, newIndex) => {
+  //id of survey
+  //oldIndex = previous position of question
+  //newIndex = number of elements before question in new position of copy of questions array
+  const survey = surveyController.getSurvey(id);
+  const question = survey.questions.splice(oldIndex, 1); //removes question returns question in an array
+  survey.questions.splice(newIndex, 0, ...question); //inserts question in new position
+  surveyController.saveFile(getSurveyDir(id), survey);
+  return survey;
+};
 
-//   {
-//     type: "mc",
-//     question: "Which color do you like the best?",
-//     options: [
-//       "Orange", "Green", "Blue", "Red"
-//     ]
-//   }
-
-// {
-//     type: "date",
-//     question: "What is your birthdate?"
-//   }
-
+//modify question by overwriting old question with new changes; index, obj
+//reorder via overwriting obj with what has been changed
+surveyController.modifyQuestion = (id, index, newQuestion) => {
+  const survey = surveyController.getSurvey(id);
+  const questionObj = survey.questions[index]; //question = entire question obj
+  survey.questions.splice(index, 1, Object.assign(questionObj, newQuestion)); //newQuestion = object from front end
+  surveyController.saveFile(getSurveyDir(id), survey);
+  return survey;
+};
 
 module.exports = surveyController;

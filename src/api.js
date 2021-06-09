@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 const surveyController = require("./controller");
 
-//reading doc/json obj to pass surveys to front end
-
 //post request to create survey
 router.post("/new", (req, res) => {
   const name = req.body.name;
@@ -23,14 +21,55 @@ router.delete("/:id", (req, res) => {
   res.status(200).send("Survey deleted!");
 });
 
-//create via post request each survey question as values
-//text entry with label property
-//date - type = date, has label
+//-----create questions and responses via post request as values-----//
+/* Example: 
+{
+    type: "text",
+    question: "What is your name?"
+  }
 
-//modify previously created survey
-//given survey id and question index, remove and modify question
-//add new question to the end of array
-//reorder via overwriting json obj
+  {
+    type: "mc",
+    question: "Which color do you like the best?",
+    options: [
+      "Orange", "Green", "Blue", "Red"
+    ]
+  }
+
+ {
+    type: "date",
+    question: "What is your birthdate?"
+  }
+
+new question Front End:
+
+fetch("/api/addQuestion/4", {
+	method: "POST",
+  	header: "...",
+  	body: JSON.stringify({
+    	type: "mc",
+      	question: "Which color do you like?",
+      	options: ["purple", "green"]
+    })
+});
+
+id 4: req.params.id
+req.body = {
+    	type: "mc",
+      	question: "Which color do you like?",
+      	options: ["purple", "green"]
+    }
+//req.body.type = "mc"
+
+fetch("/api/resequence/4", {
+	method: "PUT",
+  	header: "...",
+  	body: JSON.stringify({
+    	questionIndex: 5,
+      	questionsBefore: 0
+    })
+});
+*/
 
 //collecting responses for corresponding questions
 router.post("/responses/:id", (req, res) => {
@@ -43,15 +82,43 @@ router.post("/responses/:id", (req, res) => {
 
 //add a question (generic)
 router.post("/addQuestion/:id", (req, res) => {
-  const newQuestion = req.body.question;
+  const newQuestion = req.body;
   const survey = surveyController.saveQuestion(req.params.id, newQuestion);
   res.status(200).json(survey);
 });
 
 //delete a question (generic)
 router.delete("/deleteQuestion/:id", (req, res) => {
-  surveyController.deleteQuestion(req.params.id, req.body.index);
-  res.status(200).send("Question removed!");
+  const updatedSurvey = surveyController.deleteQuestion(
+    req.params.id,
+    req.body.index
+  );
+  res.status(200).json(updatedSurvey);
+});
+
+//-----modify previously created survey-----//
+//reorder a question (generic)
+router.put("/resequenced/:id", (req, res) => {
+  const currIndex = req.body.currIndex;
+  const questionsBefore = req.body.questionsBefore;
+  const survey = surveyController.reorderQuestion(
+    req.params.id,
+    currIndex,
+    questionsBefore
+  );
+  res.status(200).json(survey);
+});
+
+//modify a question (generic)
+router.put("/edit/:id/:index", (req, res) => {
+  const currIndex = req.params.index;
+  const question = req.body;
+  const survey = surveyController.modifyQuestion(
+    req.params.id,
+    currIndex,
+    question
+  );
+  res.status(200).json(survey);
 });
 
 module.exports = router;

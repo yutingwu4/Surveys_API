@@ -4,6 +4,7 @@ const app = express();
 const apiRouter = require("./api.js");
 
 //converts requests from client into readable language for express
+//if there is a json in body of request, unpack it and set it as body property on request object that express is creating
 app.use(express.json());
 //necessary if using <form> in html; parses data on request body into readable language for express
 app.use(express.urlencoded({ extended: true }));
