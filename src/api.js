@@ -32,4 +32,13 @@ router.delete("/:id", (req, res) => {
 //add new question to the end of array
 //reorder via overwriting json obj
 
+//collecting responses for corresponding questions
+router.post("/responses/:id", (req, res) => {
+  const survey = surveyController.saveResponse(
+    req.params.id,
+    req.body.response
+  );
+  res.status(200).send(survey);
+});
+
 module.exports = router;
