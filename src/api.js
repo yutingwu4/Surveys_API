@@ -3,10 +3,15 @@ const router = express.Router();
 const surveyController = require("./controller");
 
 //post request to create survey
-router.post("/new", (req, res) => {
-  const name = req.body.name;
-  const survey = surveyController.createSurvey(name);
-  res.status(200).json(survey);
+// router.post("/new", (req, res) => {
+//   const name = req.body.name;
+//   const survey = surveyController.createSurvey(name);
+//   res.status(200).json(survey);
+// });
+
+//alternative post request:
+router.post("/new", surveyController.createSurvey, (req, res, next) => {
+  res.status(200).json(res.locals.newSurvey);
 });
 
 //returning get survey as json to front end
@@ -82,7 +87,7 @@ fetch("/api/resequence/4", {
 router.post("/responses/:id", (req, res) => {
   const survey = surveyController.saveResponse(
     req.params.id,
-    req.body.response
+    req.body.response//array of response objs that user is sending in for survey
   );
   res.status(200).json(survey);
 });
