@@ -84,13 +84,30 @@ fetch("/api/resequence/4", {
 */
 
 //collecting responses for corresponding questions
-router.post("/responses/:id", (req, res) => {
-  const survey = surveyController.saveResponse(
-    req.params.id,
-    req.body.response//array of response objs that user is sending in for survey
-  );
-  res.status(200).json(survey);
-});
+router.post(
+  "/responses/:id",
+  surveyController.saveResponse,
+  (req, res, next) => {
+    //if res.locals has responses key, return markup
+    if (res.locals.responses)
+      return res.status(400).json({
+        survey: res.locals.survey,
+        responses: res.locals.responses,
+      });
+
+    //if response is good
+    res.status(200).json(res.locals.survey);
+  }
+);
+
+//pre-validation
+// router.post("/responses/:id", (req, res) => {
+//   const survey = surveyController.saveResponse(
+//     req.params.id,
+//     req.body.response//array of response objs that user is sending in for survey
+//   );
+//   res.status(200).json(survey);
+// });
 
 //add a question (generic)
 router.post("/addQuestion/:id", (req, res) => {

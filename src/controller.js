@@ -49,43 +49,48 @@ const validateQuestion = (questionIn) => {
 
 //checking response
 const validateResponses = (responses, survey) => {
-  const regex = /^\d{2}-\d(2)$/;
+  const regex = /^\d{2}-\d{2}$/;
   //check if responses is an array of objects
-  if (Array.isArray(responses)) {
-    //check if response has relative id; if not, remove from response array
-    //iterate over responses array
-    for (const responseObj of responses) {
-      //iterate over questions array
-      for (const questionObj of survey.questions) {
-        if (questionObj.id === responseObj.id) return;
-        else {
-          //remove response
-          delete responseObj.id;
-          return false;
-        }
+  if (!Array.isArray(responses)) return false;
+
+  //check if response has relative id; if not, remove from response array
+  //iterate over responses array
+  for (const responseObj of responses) {
+    let matchingQuestion;
+    //iterate over questions array
+    for (const questionObj of survey.questions) {
+      if (questionObj.id === responseObj.id) {
+        matchingQuestion = questionObj;
+        break;
       }
     }
-
+    if (!matchingQuestion) {
+      //"flag" object we want to delete and remove responseObj from responses later
+      responseObj.removeMe = true;
+      continue; //go to next responseObj
+    }
     //check if question has type mc, verify options exists in question and response exists in options
     if (
-      survey.questions.type === "mc" &&
-      survey.questions.options.includes(responses[responseObj.id])
+      matchingQuestion.type === "mc" &&
+      !matchingQuestion.options.includes(responseObj.response)
     )
-      return true;
-    //check if question has type date, verify format of response is correct (regex) /^\d{2}-\d(2)$/
-    if (
-      survey.questions.type === "date" &&
-      responses[responseObj.id].match(regex)
-    )
-      return true;
+      responseObj.invalid = true; //if we find a response that is invalid
+    //check if question has type date, verify format of response is correct (regex) /^\d{2}-\d{2}$/
+    if (matchingQuestion.type === "date" && !regex.test(responseObj.response))
+      //responseObj.response.match(regex)
+      responseObj.invalid = true;
     //check if question has type text, verify response is type string
     if (
-      survey.questions.type === "text" &&
-      typeof responses[responseObj.id] === "string"
+      matchingQuestion.type === "text" &&
+      typeof responseObj.response !== "string"
     )
-      return true;
+      responseObj.invalid = true;
   }
-  return false;
+
+  //removing responseObjs without corresponding questions
+  responses = responses.filter((obj) => !obj.removeMe); //responseObjs that we want to keep
+  //flag responses that are outdated but have matching id to question and send error message to frontend
+  return responses;
 };
 
 /*
@@ -176,16 +181,47 @@ surveyController.deleteFile = (link) => {
 };
 
 //receive an array of responses
-surveyController.saveResponse = (id, response) => {
-  if (!validateResponses(response)) return;
-  //reading from json
+surveyController.saveResponse = (req, res, next) => {
+  const { id } = req.params;
+  const { response } = req.body;
   const survey = surveyController.getSurvey(id);
+
+  let validatedResponses = validateResponses(response, survey);
+
+  //if response is invalid
+  if (!validatedResponses)
+    return next("Did not receive expected array of responses!");
+
+  //if responseObj has invalid property = true, return response array
+  if (validatedResponses.find((obj) => obj.invalid)) {
+    res.locals.survey = survey;
+    res.locals.responses = validatedResponses;
+    return next();
+  }
+
+  //if response is valid
   //modifying responses array by pushing received data into in-memory survey
   survey.responses.push(response);
   //saving back out to file
   surveyController.saveFile(getSurveyDir(id), survey);
-  return survey;
+  res.locals.survey = survey;
+  return next();
 };
+
+//pre-migration to api
+// surveyController.saveResponse = (id, response) => {
+//   let validatedResponses = validateResponses(response);
+//   if (!validatedResponses) return;
+//   //if responseObj has invalid property = true, return response array
+//   if (validatedResponses.find((obj) => obj.invalid)) return validatedResponses;
+//   //reading from json
+//   const survey = surveyController.getSurvey(id);
+//   //modifying responses array by pushing received data into in-memory survey
+//   survey.responses.push(response);
+//   //saving back out to file
+//   surveyController.saveFile(getSurveyDir(id), survey);
+//   return survey;
+// };
 
 //create a question (generic)
 surveyController.saveQuestion = (id, question) => {
