@@ -5,7 +5,7 @@ Surveys API is a JSON REST API for creating, modifying, and submitting surveys. 
 - Text Entry (free form) (ex: "What is your name")
 - Multiple Choice (ex: "Which color do you like the best? Choose one: [Orange, Green, Blue, Red]")
 - Date (ex: "What is your birthdate?")
-  - NOTE this is _not_ Datetime. This is date-only. Answering this kind of question should not specify a time; It should only specify a calendar date.
+  - NOTE: This specifies a calendar date (not Datetime).
 
 This exercise consists of two parts:
 1. Design the logic for REST API endpoints (JSON) for the following functionality:
