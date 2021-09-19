@@ -143,5 +143,6 @@ Verifying response type: Example scenarios to determine whether questions can be
 - If question type is "mc" (multiple choice) but has no options, question is not added.
  
 
+
 # Questions / Issues?
 Email me at patrick.wickham@alcoverooms.com and I will respond as soon as I can.
