@@ -105,4 +105,4 @@ Verifying responses: First, expect that the req.body.response is an object.  The
 
 Verifying response type: Example scenarios to determine whether questions can be added to survey
 - If question type is date or textheck, check if each response is in a string or desired format (can use regex).  If not, question is not added.  
-- If question type is "mc" (multiple choice) but has no options, question is not added.# Surveys_API
+- If question type is "mc" (multiple choice) but has no options, question is not added.
