@@ -21,7 +21,7 @@ This exercise consists of two parts:
 
 ### Out of scope
 - Using a database or any persistent storage
-- User management or identities (Assume API is used "anonymously," as a private service)
+- User management or identities (assume API is used "anonymously," as a private service)
 - Authentication
 - Frontend
 - Formal documentation
