@@ -10,7 +10,6 @@ Surveys API is a JSON REST API for creating, modifying, and submitting surveys. 
 This exercise consists of two parts:
 1. Design the logic for REST API endpoints (JSON) for the following functionality:
 - Create a survey
-  - See "Product Description" for types of questions you must support
 - Modify a previously created survey
   - Add/Remove questions
   - Modify a question
