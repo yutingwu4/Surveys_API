@@ -15,7 +15,7 @@ This exercise consists of two parts:
   - Modify a question
   - Reorder questions
   - Change options for a Multiple Choice question
-- Submit to a survey (eg take the survey)
+- Submit to/take the survey
 
 2. Implement code.
 
