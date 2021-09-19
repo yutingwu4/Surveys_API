@@ -1,7 +1,7 @@
 # Surveys_API
 
 ## Summary
-Surveys API is a JSON REST API for creating, modifying, and submitting surveys. A survey is an ordered list of survey questions. Supported types of questions include:
+Surveys API is a JSON REST API for creating, modifying, and submitting surveys.  This survey is an ordered list of questions that include:
 - Text Entry (free form) (ex: "What is your name")
 - Multiple Choice (ex: "Which color do you like the best? Choose one: [Orange, Green, Blue, Red]")
 - Date (ex: "What is your birthdate?")
