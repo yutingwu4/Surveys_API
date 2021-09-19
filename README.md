@@ -55,7 +55,7 @@ Once guidelines are set and code quality verified:
 
 The API system has been built as a CRUD interface that enables HTTP requests to be stored in a flat-file database.  It accounts for extensibility by maintaining the flexibility for engineers to modify the functionality of each route or controller. The routes are written to accommodate a variety of question types, beyond the ones outlined under Summary, that can be asked on any survey.  Currently, this system is written so that it receives some instructions from the frontend on how each CRUD operation should relay information to the backend.  However, details such as how the user takes the survey/enters responses, specification of question types, whether the questions are reordered through a dnd interface, or other interpretation of json are assumed to be handled by some kind of frontend component framework.
 
-Some thoughts included:
+Some thoughts during design included:
 - How easy would it be for a new contributor to pick up the project?
 - How easy would it be to plug-in a database layer? 
 - How easy would it be to add another type of survey question?
