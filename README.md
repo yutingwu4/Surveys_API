@@ -40,7 +40,7 @@ Run in terminal:
 ![Alcove_notes](https://user-images.githubusercontent.com/74384669/121419744-26621d00-c921-11eb-9b32-c45a6786f022.png)
 
 Assuming the provided feature set is complete, create a set of guidelines with internal team to determine what is considered "production-ready."  To transition from development to production mode, consider aligning standards and approaches for the following areas:
-- Through code reviews, follow consistent naming conventions, discuss how to best handle error-handling, maintain readability,etc. (assuming that bottlenecks, single-points-of-failure, issues such as scalability/reliability/latency have been factored into the greater system design before implementing code)
+- Through code reviews, follow consistent naming conventions, discuss how to best handle error-handling, maintain readability, etc. (assuming that bottlenecks, single-points-of-failure, issues such as scalability/reliability/latency have been factored into the greater system design before implementing code)
 - Where and how to document decisions and thought processes
 - Testing (ie. unit, integration)/TDD
 - Determine workflow for CI/CD, how to regularly evaluate performance
